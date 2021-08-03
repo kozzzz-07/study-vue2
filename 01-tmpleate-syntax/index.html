@@ -33,6 +33,8 @@
       <button v-on:click="countUp($event, 2)">click</button>
       <p v-on:mousemove="changeMousePosition">on mouse</p>
       <p>X:{{x}}, Y:{{y}}</p>
+      <input v-on:keyup.enter="myAlert" type="text" />
+      <input @[event].enter="myAlert" type="text" />
 
       <!-- .stop .prevent -->
       <a v-on:click.prevent :href="url">Google</a>
@@ -55,6 +57,7 @@
           count: 0,
           x: 0,
           y: 0,
+          event: "keyup",
         },
         methods: {
           changeMessage: function () {
@@ -69,6 +72,9 @@
           changeMousePosition: function (e) {
             this.x = e.clientX;
             this.y = e.clientY;
+          },
+          myAlert: function () {
+            alert("enter");
           },
         },
       });
