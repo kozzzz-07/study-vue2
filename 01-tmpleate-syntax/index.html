@@ -26,6 +26,17 @@
       <a :href="url" :id="number">Google</a>
       <a v-bind="{href:url, id:number}">Google</a>
       <a v-bind="googleObj">Google</a>
+
+      <!-- v-on -->
+      <p>{{count}}</p>
+      <button v-on:click="countUp">click</button>
+      <button v-on:click="countUp($event, 2)">click</button>
+      <p v-on:mousemove="changeMousePosition">on mouse</p>
+      <p>X:{{x}}, Y:{{y}}</p>
+
+      <!-- .stop .prevent -->
+      <a v-on:click.prevent :href="url">Google</a>
+      <a v-on:click.prevent.stop :href="url">Google</a>
     </div>
 
     <script>
@@ -41,6 +52,9 @@
             href: "https://www.google.co.jp/",
             id: 1,
           },
+          count: 0,
+          x: 0,
+          y: 0,
         },
         methods: {
           changeMessage: function () {
@@ -48,6 +62,13 @@
           },
           hello: function (name) {
             return this.message + name;
+          },
+          countUp: function (event, n = 1) {
+            this.count += 1 * n;
+          },
+          changeMousePosition: function (e) {
+            this.x = e.clientX;
+            this.y = e.clientY;
           },
         },
       });
