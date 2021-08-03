@@ -39,6 +39,17 @@
       <!-- .stop .prevent -->
       <a v-on:click.prevent :href="url">Google</a>
       <a v-on:click.prevent.stop :href="url">Google</a>
+
+      <!-- v-model -->
+      <div></div>
+      <input v-model="message" type="text" />
+
+      <!-- computedは関数で参照しているdataが変更された時に反応する-->
+      <p>{{lessThanThreeComputed}}</p>
+      <!-- methodsは otherCountが更新された場合でも反応する-->
+      <p>{{lessThanThreeMethod()}}</p>
+      <p>{{otherCount}}</p>
+      <button v-on:click="otherCount += 1">click</button>
     </div>
 
     <script>
@@ -55,11 +66,22 @@
             id: 1,
           },
           count: 0,
+          otherCount: 0,
           x: 0,
           y: 0,
           event: "keyup",
         },
+        computed: {
+          lessThanThreeComputed: function () {
+            console.log("Computed");
+            return this.count > 3 ? "3より上" : "3以下";
+          },
+        },
         methods: {
+          lessThanThreeMethod: function () {
+            console.log("Method");
+            return this.count > 3 ? "3より上" : "3以下";
+          },
           changeMessage: function () {
             this.message = "fuga";
           },
@@ -75,6 +97,14 @@
           },
           myAlert: function () {
             alert("enter");
+          },
+        },
+        watch: {
+          count: function () {
+            const self = this;
+            setTimeout(function () {
+              self.count = 0;
+            }, 3000);
           },
         },
       });
