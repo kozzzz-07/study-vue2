@@ -11,8 +11,21 @@
 
     <div id="app">
       <p>{{message}}</p>
+      <p v-text="message"></p>
+      <p v-once="message"></p>
       <p>{{number * 10}}</p>
       <p>{{hello("hoge")}}</p>
+      <div v-html="html"></div>
+
+      <!-- v-bind -->
+      <a v-bind:href="url">Google</a>
+      <!-- v-bind 省略 -->
+      <a :href="url">Google</a>
+      <a :[attribute]="url">Google</a>
+      <!-- 下記3つは同じ意味 -->
+      <a :href="url" :id="number">Google</a>
+      <a v-bind="{href:url, id:number}">Google</a>
+      <a v-bind="googleObj">Google</a>
     </div>
 
     <script>
@@ -21,8 +34,18 @@
         data: {
           message: "hello",
           number: 5,
+          html: "<h1>h1</h1>",
+          url: "https://www.google.co.jp/",
+          attribute: "href",
+          googleObj: {
+            href: "https://www.google.co.jp/",
+            id: 1,
+          },
         },
         methods: {
+          changeMessage: function () {
+            this.message = "fuga";
+          },
           hello: function (name) {
             return this.message + name;
           },
