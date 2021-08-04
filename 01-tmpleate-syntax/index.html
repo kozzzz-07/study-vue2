@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
@@ -50,6 +51,10 @@
       <p>{{lessThanThreeMethod()}}</p>
       <p>{{otherCount}}</p>
       <button v-on:click="otherCount += 1">click</button>
+
+      <h1 :class="classObj">Hello</h1>
+      <h1 :class="[{red: isActive}, bg]">Hello</h1>
+      <button @click="isActive = !isActive">切り替え</button>
     </div>
 
     <script>
@@ -70,11 +75,20 @@
           x: 0,
           y: 0,
           event: "keyup",
+          isActive: true,
+          color: "red",
+          bg: "bg-blue",
         },
         computed: {
           lessThanThreeComputed: function () {
             console.log("Computed");
             return this.count > 3 ? "3より上" : "3以下";
+          },
+          classObj: function () {
+            return {
+              red: this.isActive,
+              "bg-blue": !this.isActive,
+            };
           },
         },
         methods: {
