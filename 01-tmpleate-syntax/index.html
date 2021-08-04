@@ -55,6 +55,9 @@
       <h1 :class="classObj">Hello</h1>
       <h1 :class="[{red: isActive}, bg]">Hello</h1>
       <button @click="isActive = !isActive">切り替え</button>
+
+      <h1 :style="styleObj">Hello</h1>
+      <h1 :style="[baseStyles, styleObj]">Hello</h1>
     </div>
 
     <script>
@@ -78,6 +81,14 @@
           isActive: true,
           color: "red",
           bg: "bg-blue",
+          styleObj: {
+            color: "red",
+            "background-color": "blue",
+          },
+          baseStyles: {
+            fontSize: "45px",
+            color: "green",
+          },
         },
         computed: {
           lessThanThreeComputed: function () {
