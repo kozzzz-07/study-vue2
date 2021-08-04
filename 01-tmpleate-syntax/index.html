@@ -58,6 +58,44 @@
 
       <h1 :style="styleObj">Hello</h1>
       <h1 :style="[baseStyles, styleObj]">Hello</h1>
+
+      <!-- v-if -->
+      <p v-if="ok">OK</p>
+      <p v-else-if="maybeOk">maybe OK</p>
+      <p v-else>Not OK</p>
+
+      <template v-if="ok">
+        <p>Hello</p>
+        <p>Good Bye</p>
+      </template>
+      <button @click="ok = !ok">ok</button>
+
+      <!-- v-show -->
+      <p v-show="ok">Show</p>
+
+      <!-- v-for -->
+      <ul>
+        <li v-for="(fruit, index) in fruits">({{index}}){{fruit}}</li>
+        <li v-for="(value, key, index) in object">
+          ({{index}}-{{key}}){{value}}
+        </li>
+        <li v-for="n in 10">{{n}}</li>
+      </ul>
+
+      <ul>
+      <template v-for="(fruit, index) in fruits">
+        <li >({{index}}){{fruit}}</li>
+        <hr> <!-- 例としてまとめられるよって意味 -->
+      </template>
+      <ul>
+
+      <!-- keyは指定すること -->
+      <ul>
+        <div v-for="fruit in fruits" :key="fruit">
+          <li >{{fruit}}</li>
+        </div>
+      </ul>
+
     </div>
 
     <script>
@@ -88,6 +126,14 @@
           baseStyles: {
             fontSize: "45px",
             color: "green",
+          },
+          ok: true,
+          maybeOk: false,
+          fruits: ["りんご", "バナナ", "ぶどう"],
+          object: {
+            firstName: "太郎",
+            lastName: "田中",
+            age: 21,
           },
         },
         computed: {
