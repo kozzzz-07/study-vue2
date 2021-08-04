@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <div id="app1">
+      <p>{{message}}</p>
+      <p>{{name}}</p>
+      <button @click="name = 'hoge'">nameを変更</button>
+    </div>
+
+    <div id="app2">
+      <p>{{message}}</p>
+      <button @click="changeMessage">インスタンス1のメッセージを変更</button>
+      <p>{{myData}}</p>
+    </div>
+
+    <div id="app3"></div>
+
+    <div id="app4"></div>
+
+    <script>
+      // 複数のインスタンスを作成できる。普通はやらない
+      const vue1 = new Vue({
+        el: "#app1",
+        data: {
+          message: "インスタンス1",
+        },
+      });
+
+      // 外から変更できる
+      vue1.message = "インスタンス1！！！";
+      // 新しくdataを代入すると、リアクティブにならない
+      vue1.name = "ほげ";
+
+      //--------------------
+
+      // 外部で定義できる
+      const data = {
+        message: "インスタンス2",
+      };
+
+      const vue2 = new Vue({
+        data,
+        computed: {
+          myData: function () {
+            // 内部からVueインスタンスのプロパティにアクセスする
+            return this.$data;
+          },
+        },
+        methods: {
+          changeMessage: function () {
+            vue1.message = "インスタンス2からの変更";
+          },
+        },
+      });
+
+      // 初期でelを指定しなくてもmountで指定できる
+      vue2.$mount("#app2");
+
+      console.log(vue2.$data);
+      console.log(vue2.$data === data);
+
+      //--------------------
+
+      new Vue({
+        el: "#app3",
+        data: {
+          message: "hello",
+        },
+        // 要素を定義できる
+        template: "<p>{{message}}</p>",
+      });
+
+      //--------------------
+
+      new Vue({
+        el: "#app4",
+        data: {
+          message: "hello",
+        },
+        render: function (createElement) {
+          return createElement("h1", "こんちは" + this.message);
+        },
+      });
+    </script>
+  </body>
+</html>
