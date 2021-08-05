@@ -29,9 +29,15 @@
       <p>{{message}}</p>
       <button @click="message = 'hoge'">messageを変更</button>
       <button @click="destroy">インスタンスを削除</button>
+      <hello></hello>
+      <hello></hello>
     </div>
 
     <script>
+      Vue.component("hello", {
+        template: "<p>こんにちは</p>",
+      });
+
       // 複数のインスタンスを作成できる。普通はやらない
       const vue1 = new Vue({
         el: "#app1",
