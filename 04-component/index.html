@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <div id="app">
+      <my-component></my-component>
+      <my-component></my-component>
+      <my-component2></my-component2>
+    </div>
+
+    <div id="app2">
+      <my-component></my-component>
+      <!-- 利用できない -->
+      <my-component2></my-component2>
+    </div>
+
+    <script>
+      // コンポーネントのグローバル登録
+      Vue.component("my-component", {
+        // コンポーネントはdataを関数にして返す必要がある
+        data: function () {
+          return { number: 12 };
+        },
+        template: "<p>いいね ({{number}})</p>",
+      });
+
+      const component = {
+        data: function () {
+          return { number: 12 };
+        },
+        template: "<p>いいねv2 ({{number}})</p>",
+      };
+
+      new Vue({
+        el: "#app",
+        // コンポーネントのローカル登録
+        components: {
+          "my-component2": component,
+        },
+      });
+
+      new Vue({
+        el: "#app2",
+      });
+    </script>
+  </body>
+</html>
