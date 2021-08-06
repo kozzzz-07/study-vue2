@@ -28,18 +28,31 @@
     <!-- <LikeNumber :totalNumber="number" v-on:my-click="number = $event"></LikeNumber> -->
     <LikeNumber :totalNumber="number" v-on:my-click="incrementNumber"></LikeNumber>
     <LikeNumber :total-number="number"></LikeNumber>
+
+    <button @click="currentComponent = 'Home'">Home</button>
+    <button @click="currentComponent = 'About'">About</button>
+    <!-- 動的コンポーネント、切り替えるたびに削除と作成が行われる -->
+    <component :is="currentComponent"></component>
+    <!-- コンポーネントの状態を保持する -->
+    <keep-alive>
+      <component :is="currentComponent"></component>
+    </keep-alive>
+
   </div>
 
 </template>
 
 <script>
 import LikeHeader from './components/LikeHeader.vue';
+import About from './components/About.vue';
+import Home from './components/Home.vue';
 
 export default {
   data() {
     return {
       number: 10,
-      title: "title"
+      title: "title",
+      currentComponent: "Home"
     }
   },
   methods: {
@@ -48,7 +61,9 @@ export default {
     }
   },
   components: {
-    LikeHeader
+    LikeHeader,
+    About,
+    Home
   }
 }
 </script>
