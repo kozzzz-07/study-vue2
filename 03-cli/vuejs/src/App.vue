@@ -35,7 +35,8 @@
     <button @click="currentComponent = 'Home'">Home</button>
     <button @click="currentComponent = 'About'">About</button>
     <!-- 動的コンポーネント、切り替えるたびに削除と作成が行われる -->
-    <component :is="currentComponent"></component>
+    <!-- <component :is="currentComponent"></component> -->
+
     <!-- コンポーネントの状態を保持する -->
     <keep-alive>
       <component :is="currentComponent"></component>
