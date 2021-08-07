@@ -44,7 +44,7 @@
     <div>
       <h2>イベントのフォーム</h2>
       <label for="title">タイトル</label>
-      <input type="text" id="title" v-model="eventData.title" />
+      <input type="text" id="title" v-model.lazy="eventData.title" />
       <p>{{eventData.title}}</p>
     </div>
   </div>
