@@ -5,11 +5,23 @@
     <p v-localBorder:dotted.round.shadow="{ width: '1px', color: 'blue' }">
       Hoge
     </p>
+    <h2>{{ title | upperCase }}</h2>
+    <h2>{{ title | lowerCase }}</h2>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      title: "Welcome to Tokyo",
+    };
+  },
+  filters: {
+    lowerCase(value) {
+      return value.toLowerCase();
+    },
+  },
   directives: {
     localBorder(el, binding) {
       el.style.border = "solid black 2px";
