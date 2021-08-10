@@ -2,10 +2,25 @@
   <div class="main">
     <button @click="myAnimation = 'slide'">Slide</button>
     <button @click="myAnimation = 'fade'">Fade</button>
-    <p>{{myAnimation}}</p>
-    <button @click="show = !show">切り替え</button><br>
-    <br><br>
-
+    <p>{{ myAnimation }}</p>
+    <br />
+    <button @click="add">追加</button>
+    <ul style="width: 200px; margin: auto;">
+      <!-- transition-groupはデフォルトspanタグになる。tagで指定可能 -->
+      <transition-group name="fade" tag="div">
+        <li
+          v-for="(number, index) in numbers"
+          :key="number"
+          @click="remove(index)"
+          style="cursor: pointer"
+        >
+          {{ number }}
+        </li>
+      </transition-group>
+    </ul>
+    <br />
+    <button @click="show = !show">切り替え</button><br />
+    <br /><br />
     <!-- transitionをjsで制御する -->
     <!-- :css=falseでcssを利用しないことを明示する（jsのみ） -->
     <transition
@@ -38,7 +53,6 @@
     <transition name="fade" mode="out-in">
       <component :is="myComponent"></component>
     </transition>
-
 
     <transition name="fade">
       <p v-if="show">hello</p>
@@ -74,19 +88,31 @@
 </template>
 
 <script>
-import ComponentA from './components/ComponentA.vue'
-import ComponentB from './components/ComponentB.vue'
+import ComponentA from "./components/ComponentA.vue";
+import ComponentB from "./components/ComponentB.vue";
 export default {
   data() {
     return {
       show: true,
-      myAnimation: 'slide',
-      myComponent: "ComponentA"
+      myAnimation: "slide",
+      myComponent: "ComponentA",
+      numbers: [0, 1, 2],
+      nextNumber: 3,
     };
   },
   methods: {
+    randomIndex() {
+      return Math.floor(Math.random() * this.numbers.length);
+    },
+    add() {
+      this.numbers.splice(this.randomIndex(), 0, this.nextNumber);
+      this.nextNumber += 1;
+    },
+    remove(index) {
+      this.numbers.splice(index, 1);
+    },
     beforeEnter(el) {
-      el.style.transform = 'scale(0)';
+      el.style.transform = "scale(0)";
     },
     enter(el, done) {
       let scale = 0;
@@ -139,8 +165,8 @@ export default {
   },
   components: {
     ComponentA,
-    ComponentB
-  }
+    ComponentB,
+  },
 };
 </script>
 
@@ -153,7 +179,10 @@ export default {
   border-radius: 100px;
 }
 
-
+/* transition-groupの時に指定可能 */
+.fade-move {
+  transition: transform 1s;
+}
 .fade-enter {
   /* 現れる時の最初の状態 */
   opacity: 0;
@@ -173,6 +202,10 @@ export default {
 .fade-leave-active {
   /* 消える時のトラジションの状態 */
   transition: opacity 1s;
+
+  /* リスト削除時のアニメーション */
+  position: absolute;
+  width: 200px;
 }
 .fade-leave-to {
   /* 消える時の最後の状態 */
