@@ -13,7 +13,14 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    { path: "/", components: { default: Home, header: HeaderHome } },
+    {
+      path: "/",
+      components: { default: Home, header: HeaderHome },
+      // 特定のページに遷移前に処理をする
+      beforeEnter(to, from, next) {
+        next();
+      },
+    },
     {
       path: "/users/:id",
       components: { default: Users, header: HeaderUsers },
@@ -32,28 +39,26 @@ export default new Router({
     },
   ],
   scrollBehavior(to, from, savedPosition) {
-
     // transitionが適応されている時のスクロールは非同期にする
-    return new Promise(resolve => {
-      this.app.$root.$once("triggerScroll",  () => {
-        console.log('triggerScroll');
-        
+    return new Promise((resolve) => {
+      this.app.$root.$once("triggerScroll", () => {
+        console.log("triggerScroll");
+
         let position = { x: 0, y: 0 };
 
         if (savedPosition) {
           position = savedPosition;
         }
-    
+
         if (to.hash) {
           position = {
             selector: to.hash,
           };
         }
-    
+
         return resolve(position);
       });
-    })
-
+    });
 
     // 通常は同期
     // if (savedPosition) {
@@ -68,8 +73,7 @@ export default new Router({
 
     // return { x: 0, y: 0 };
 
-
-// ------パターン↓
+    // ------パターン↓
 
     // hashを指定するパターン
     // return {

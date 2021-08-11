@@ -30,6 +30,27 @@
 <script>
 export default {
   props: ["id"],
+  beforeRouteEnter: (to, from, next) => {
+    // thisは使えない
+    console.log('beforeRouteEnter');
+    next(vm => {
+      console.log(vm.id);
+    })
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log('beforeRouteUpdate');
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log('beforeRouteLeave');
+    const isLeave = window.confirm("ページを離れますか？")
+    if (isLeave) {
+      next();
+    } else {
+      next(false);
+    }
+  },
+
   watch: {
     // $routeをwatchすることで、コンポーネントの切り替わり時の値を取れる
     $route(to, from) {
