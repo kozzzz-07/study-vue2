@@ -1,12 +1,22 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Home from "./views/Home.vue";
-import Users from "./views/Users.vue";
-import UsersPosts from "./views/UsersPosts.vue";
-import UsersProfile from "./views/UsersProfile.vue";
-import HeaderHome from "./views/HeaderHome.vue";
-import HeaderUsers from "./views/HeaderUsers.vue";
+// 遅延読み込み
+// webpackChunkNameを指定すると、1.jsとかではなく名前をつけられる
+// webpackChunkNameで同じ名前を指定すると、ファイルをまとめられる(chunk)
+const Home = () => import(/* webpackChunkName: "Home" */ "./views/Home.vue");
+const Users = () => import(/* webpackChunkName: "Users" */ "./views/Users.vue");
+const UsersPosts = () => import(/* webpackChunkName: "Users" */ "./views/UsersPosts.vue");
+const UsersProfile = () => import(/* webpackChunkName: "Users" */ "./views/UsersProfile.vue");
+const HeaderHome = () => import("./views/HeaderHome.vue");
+const HeaderUsers = () => import("./views/HeaderUsers.vue");
+
+// import Home from "./views/Home.vue";
+// import Users from "./views/Users.vue";
+// import UsersPosts from "./views/UsersPosts.vue";
+// import UsersProfile from "./views/UsersProfile.vue";
+// import HeaderHome from "./views/HeaderHome.vue";
+// import HeaderUsers from "./views/HeaderUsers.vue";
 
 // Vue.use() プラグインを利用する
 Vue.use(Router);
