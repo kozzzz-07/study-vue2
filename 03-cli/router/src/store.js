@@ -9,5 +9,15 @@ export default new Vuex.Store({
   },
   getters: {
     doubleCount: state => state.count * 2
+  },
+  // mutationsでのみstateを更新すること
+  // 同期的な処理しか書けない
+  mutations: {
+    increment(state, number) {
+      state.count += number
+    },
+    decrement(state, number) {
+      state.count -= number
+    },
   }
 });

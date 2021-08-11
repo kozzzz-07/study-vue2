@@ -3,7 +3,7 @@
     <h3>Home</h3>
     <button @click="toUsers">Go Users</button>
     <p>{{ count }}</p>
-    <p>{{ myDoubleCount }}</p>
+    <!-- <p>{{ myDoubleCount }}</p> -->
   </div>
 </template>
 
