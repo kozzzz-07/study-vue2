@@ -13,7 +13,7 @@ export default {
       // this.$router.push({path: 'users'})
 
       // paramsはnameのみにしか使えない
-      this.$router.push({ name: "user-id-profile", params: { id: 1 } });
+      this.$router.push({ name: "user-id-profile", params: { id: 1 }, hash: '#next-user'});
     },
   },
 };
