@@ -38,7 +38,7 @@ export default {
     // doubleCount() {
     //   return this.$store.getters.doubleCount;
     // }
-    ...mapGetters(["doubleCount"]),
+    ...mapGetters("count", ["doubleCount"]),
     // 別名もつけられる
     // ...mapGetters({myDoubleCount: "doubleCount"}),
   },
