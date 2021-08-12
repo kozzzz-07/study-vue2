@@ -20,6 +20,9 @@
 <script>
 import axios from "axios";
 
+// カスタムインスタンスを利用すれば、baseURLの切り替えなどが行える
+// import axios from "./axios-auth";
+
 export default {
   data() {
     return {
@@ -31,7 +34,7 @@ export default {
   created() {
     axios
       .get(
-        "https://firestore.googleapis.com/v1/projects/[PROJECT-ID]]/databases/(default)/documents/comments"
+        "/comments"
       )
       .then((resp) => {
         this.posts = resp.data.documents;
@@ -42,7 +45,7 @@ export default {
     createComment() {
       axios
         .post(
-          "https://firestore.googleapis.com/v1/projects/[PROJECT-ID]]/databases/(default)/documents/comments",
+          "/comments",
           {
             fields: {
               name: {
